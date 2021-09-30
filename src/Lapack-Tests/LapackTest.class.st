@@ -14,48 +14,37 @@ Class {
 		'rcond',
 		'rank',
 		'work',
-		'info'
+		'iwork',
+		'info',
+		'a',
+		'b',
+		's'
 	],
 	#category : #'Lapack-Tests'
 }
 
 { #category : #'as yet unclassified' }
-LapackTest >> arrayA [
+LapackTest >> expectedMinimumNormSolution [
 
-	^ {
-		0.12. -6.91. -3.33.  3.97.
-      	-8.19.  2.22. -8.94.  3.33.
-      	7.69. -5.12. -6.72. -2.74.
-      	-2.26. -9.08. -4.40. -7.92.
-      	-4.71.  9.96. -9.98. -3.20
-	} asFFIExternalArrayOfType: 'double'
+	^ #(
+		-0.69 -0.24 0.06
+		-0.80 -0.08 0.21
+		0.38 0.12 -0.65
+		0.29 -0.24 0.42
+		0.29 0.35 -0.30
+	) asFFIExternalArrayOfType: 'double'.
 ]
 
 { #category : #'as yet unclassified' }
-LapackTest >> arrayB [
+LapackTest >> expectedRank [
 
-	^ {
-		7.30.  1.33.  2.68. -9.62.  0.00.
-		0.47.  6.58. -1.71. -0.79.  0.00.
-		-6.28. -3.42.  3.46.  0.41.  0.00
-	} asFFIExternalArrayOfType: 'double'
+	^ 4
 ]
 
 { #category : #'as yet unclassified' }
-LapackTest >> arrayIWork [
-	"iwork dimension should be at least 3*min(m,n)*nlvl + 11*min(m,n),
-   where nlvl = max( 0, int( log_2( min(m,n)/(smlsiz+1) ) )+1 )
-   and smlsiz = 25"
+LapackTest >> expectedSingularValues [
 
-	| size |
-	size := (3 * m * 0) + (11 * m).
-	^ FFIExternalArray newType: 'int' size: size.
-]
-
-{ #category : #'as yet unclassified' }
-LapackTest >> arrayS [
-
-	^ FFIExternalArray newType: 'double' size: m.
+	^ #(18.66 15.99 10.01 8.51) asFFIExternalArrayOfType: 'double'.
 ]
 
 { #category : #tests }
@@ -67,16 +56,55 @@ LapackTest >> findOptimalWorkspace [
 		findOptimalWorkspace: m 
 		n: n 
 		nrhs: nrhs 
-		a: self arrayA 
+		a: a 
 		lda: lda 
-		b: self arrayB 
+		b: b 
 		ldb: ldb 
-		s: self arrayS 
+		s: s 
 		rcond: rcond 
 		rank: rank 
 		work: work  
-		iwork: self arrayIWork 
+		iwork: iwork 
 		info: info.
+]
+
+{ #category : #'as yet unclassified' }
+LapackTest >> initializeArrayA [
+
+	^ {
+		0.12. -6.91. -3.33.  3.97.
+      	-8.19.  2.22. -8.94.  3.33.
+      	7.69. -5.12. -6.72. -2.74.
+      	-2.26. -9.08. -4.40. -7.92.
+      	-4.71.  9.96. -9.98. -3.20
+	} asFFIExternalArrayOfType: 'double'
+]
+
+{ #category : #'as yet unclassified' }
+LapackTest >> initializeArrayB [
+
+	^ {
+		7.30.  1.33.  2.68. -9.62.  0.00.
+		0.47.  6.58. -1.71. -0.79.  0.00.
+		-6.28. -3.42.  3.46.  0.41.  0.00
+	} asFFIExternalArrayOfType: 'double'
+]
+
+{ #category : #'as yet unclassified' }
+LapackTest >> initializeArrayIWork [
+	"iwork dimension should be at least 3*min(m,n)*nlvl + 11*min(m,n),
+   where nlvl = max( 0, int( log_2( min(m,n)/(smlsiz+1) ) )+1 )
+   and smlsiz = 25"
+
+	| size |
+	size := (3 * m * 0) + (11 * m).
+	^ FFIExternalArray newType: 'int' size: size.
+]
+
+{ #category : #'as yet unclassified' }
+LapackTest >> initializeArrayS [
+
+	^ FFIExternalArray newType: 'double' size: m.
 ]
 
 { #category : #'as yet unclassified' }
@@ -97,6 +125,11 @@ LapackTest >> setUp [
 	
 	"Negative rcond means using default (machine precision) value"
 	rcond := -1.0.
+	
+	a := self initializeArrayA.
+	b := self initializeArrayB.
+	s := self initializeArrayS.
+	iwork := self initializeArrayIWork.
 		
 	lapack := Lapack new.
 ]
@@ -113,17 +146,29 @@ LapackTest >> testDgelsd [
 		ffiDgelsdM: m 
 		n: n 
 		nrhs: nrhs 
-		a: self arrayA 
+		a: a 
 		lda: lda 
-		b: self arrayB 
+		b: b
 		ldb: ldb 
-		s: self arrayS 
+		s: s 
 		rcond: rcond 
 		rank: rank 
 		work: work 
 		lwork: lwork 
-		iwork: self arrayIWork 
-		info: info
+		iwork: iwork 
+		info: info.
+		
+	"Check for convergence"
+	self assert: info equals: 0.
+	
+	"Check the minimum norm solution"
+	self assert: b equals: self expectedMinimumNormSolution.
+	
+	"Check the rank of a matrix"
+	self assert: rank equals: self expectedRank.
+	
+	"Check singular values"
+	self assert: s equals: self expectedSingularValues.
 ]
 
 { #category : #tests }
