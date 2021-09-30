@@ -50,7 +50,7 @@ LapackTest >> setUp [
 { #category : #tests }
 LapackTest >> testFirst [
 	
-	| lp work size s rcond rank iwork info lwork |
+	| lp work size s rcond rank iwork infoPtr lwork |
 	lp := Lapack new.
 	work := #().
 	size := lp
@@ -66,7 +66,7 @@ LapackTest >> testFirst [
 		rank: rank 
 		work: work  
 		iwork: iwork 
-		info: info.
+		info: infoPtr.
 	
 	lp 
 		ffiDgelsdM: m 
@@ -82,5 +82,5 @@ LapackTest >> testFirst [
 		work: work 
 		lwork: lwork 
 		iwork: iwork 
-		info: info
+		info: infoPtr
 ]
