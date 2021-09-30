@@ -23,7 +23,7 @@ LapackTest >> matrixA [
       	7.69. -5.12. -6.72. -2.74.
       	-2.26. -9.08. -4.40. -7.92.
       	-4.71.  9.96. -9.98. -3.20
-	}
+	} asFFIExternalArrayOfType: 'double'
 ]
 
 { #category : #'as yet unclassified' }
@@ -33,7 +33,7 @@ LapackTest >> matrixB [
 		7.30.  1.33.  2.68. -9.62.  0.00.
 		0.47.  6.58. -1.71. -0.79.  0.00.
 		-6.28. -3.42.  3.46.  0.41.  0.00
-	}
+	} asFFIExternalArrayOfType: 'double'
 ]
 
 { #category : #'as yet unclassified' }
