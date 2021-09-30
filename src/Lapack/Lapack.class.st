@@ -160,24 +160,3 @@ Lapack >> findOptimalWorkspace: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s:
         lwork = (int)wkopt;
         work = (double*)malloc( lwork*sizeof(double) );"
 ]
-
-{ #category : #ffi }
-Lapack >> matrix1 [
-	"self new matrix1"
-	
-	| lapack m n nrhs a b s work iwork |
-	lapack := Lapack new.
-
-	m := 4.
-	n := 2.
-	nrhs := 3.
-
-	a := FFIExternalArray newType: 'double' size: (m * n).
-	b := FFIExternalArray newType: 'double' size: (m * n).
-	s := FFIExternalArray newType: 'double' size: (m * n).
-
-	work := FFIExternalArray newType: 'double' size: (m * n).
-	iwork := FFIExternalArray newType: 'int' size: (m * n).
-
-	lapack ffiDgelsdM: m n: n nrhs: nrhs a: a lda: m b: b ldb: n s: s rcond: 0 rank: 0 work: work lwork: 0 iwork: iwork info: 0.
-]
