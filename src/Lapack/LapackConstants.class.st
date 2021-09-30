@@ -1,9 +1,6 @@
 Class {
 	#name : #LapackConstants,
 	#superclass : #SharedPool,
-	#classVars : [
-		'HBP_DEFAULT'
-	],
 	#category : #Lapack
 }
 

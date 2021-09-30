@@ -2,13 +2,14 @@ Class {
 	#name : #LapackTypes,
 	#superclass : #SharedPool,
 	#classVars : [
-		'hid_t'
+		'lapack_int'
 	],
 	#category : #Lapack
 }
 
 { #category : #initialization }
 LapackTypes class >> initialize [
+	"self initialize"
 	
-	hid_t := #int64.
+	lapack_int := #int.
 ]

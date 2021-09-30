@@ -14,13 +14,13 @@ Lapack class >> ffiLibrary [
 	^ LapackLibrary
 ]
 
-{ #category : #'as yet unclassified' }
-Lapack >> ffLibrary [
+{ #category : #ffi }
+Lapack >> allocateOptimalWorkspaceOfSize: n [
 
-	^ LapackLibrary
+	^ FFIExternalArray newType: 'double' size: n 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #ffi }
 Lapack >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: rank work: work lwork: lwork iwork: iwork info: info [
 
 	"Source: http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga94bd4a63a6dacf523e25ff617719f752.html
@@ -105,12 +105,79 @@ Lapack >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: 
                 bidiagonal form did not converge to zero."
 
 	^ self ffiCall: #(void LAPACK_dgelsd(
-    	lapack_int const* m, lapack_int const* n, lapack_int const* nrhs,
-    	double* a, lapack_int const* lda,
-    	double* b, lapack_int const* ldb,
-    	double* s,
-    	double const* rcond, lapack_int* rank,
-    	double* work, lapack_int const* lwork,
-    	lapack_int* iwork,
-    	lapack_int* info)).
+    	lapack_int m, lapack_int n, lapack_int nrhs,
+    	double a, lapack_int  lda,
+    	double b, lapack_int  ldb,
+    	double s,
+    	double rcond, lapack_int rank,
+    	double work, lapack_int  lwork,
+    	lapack_int iwork,
+    	lapack_int info)).
+]
+
+{ #category : #ffi }
+Lapack >> ffiLibrary [ 
+
+	^ LapackLibrary
+]
+
+{ #category : #ffi }
+Lapack >> findOptimalWorkspace: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: rank work: work iwork: iwork info: info [
+
+	self ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: rank work: work lwork: -1 iwork: iwork info: info.
+	^ work at: 1 "should be int"
+	
+	" /* Locals */
+        int m = M, n = N, nrhs = NRHS, lda = LDA, ldb = LDB, info, lwork, rank;
+        /* Negative rcond means using default (machine precision) value */
+        double rcond = -1.0;
+        double wkopt;
+        double* work;
+        /* Local arrays */
+        /* iwork dimension should be at least 3*min(m,n)*nlvl + 11*min(m,n),
+                where nlvl = max( 0, int( log_2( min(m,n)/(smlsiz+1) ) )+1 )
+                and smlsiz = 25 */
+        int iwork[3*M*0+11*M];
+        double s[M];
+        double a[LDA*N] = {
+            0.12, -6.91, -3.33,  3.97,
+           -8.19,  2.22, -8.94,  3.33,
+            7.69, -5.12, -6.72, -2.74,
+           -2.26, -9.08, -4.40, -7.92,
+           -4.71,  9.96, -9.98, -3.20
+        };
+        double b[LDB*NRHS] = {
+            7.30,  1.33,  2.68, -9.62,  0.00,
+            0.47,  6.58, -1.71, -0.79,  0.00,
+           -6.28, -3.42,  3.46,  0.41,  0.00
+        };
+        /* Executable statements */
+        printf( "" DGELSD Example Program Results\n"" );
+        /* Query and allocate the optimal workspace */
+        lwork = -1;
+        dgelsd( &m, &n, &nrhs, a, &lda, b, &ldb, s, &rcond, &rank, &wkopt, &lwork,
+                        iwork, &info );
+        lwork = (int)wkopt;
+        work = (double*)malloc( lwork*sizeof(double) );"
+]
+
+{ #category : #ffi }
+Lapack >> matrix1 [
+	"self new matrix1"
+	
+	| lapack m n nrhs a b s work iwork |
+	lapack := Lapack new.
+
+	m := 4.
+	n := 2.
+	nrhs := 3.
+
+	a := FFIExternalArray newType: 'double' size: (m * n).
+	b := FFIExternalArray newType: 'double' size: (m * n).
+	s := FFIExternalArray newType: 'double' size: (m * n).
+
+	work := FFIExternalArray newType: 'double' size: (m * n).
+	iwork := FFIExternalArray newType: 'int' size: (m * n).
+
+	lapack ffiDgelsdM: m n: n nrhs: nrhs a: a lda: m b: b ldb: n s: s rcond: 0 rank: 0 work: work lwork: 0 iwork: iwork info: 0.
 ]
