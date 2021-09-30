@@ -105,14 +105,14 @@ Lapack >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: 
                 bidiagonal form did not converge to zero."
 
 	^ self ffiCall: #(void LAPACK_dgelsd(
-    	lapack_int m, lapack_int n, lapack_int nrhs,
-    	double a, lapack_int  lda,
-    	double b, lapack_int  ldb,
-    	double s,
-    	double rcond, lapack_int rank,
-    	double work, lapack_int  lwork,
-    	lapack_int iwork,
-    	lapack_int info)).
+    	const lapack_int* m, const lapack_int* n, const lapack_int* nrhs,
+    	double* a, const lapack_int* lda,
+    	double* b, const lapack_int* ldb,
+    	double* s,
+    	const double* rcond, lapack_int* rank,
+    	double* work, const lapack_int* lwork,
+    	lapack_int* iwork,
+    	lapack_int* info)).
 ]
 
 { #category : #ffi }
