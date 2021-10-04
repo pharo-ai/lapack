@@ -35,14 +35,12 @@ LapackTest >> doublePointer: aNumber [
 
 { #category : #'as yet unclassified' }
 LapackTest >> expectedMinimumNormSolution [
-
+	
 	^ #(
-		-0.69 -0.24 0.06
-		-0.80 -0.08 0.21
-		0.38 0.12 -0.65
-		0.29 -0.24 0.42
-		0.29 0.35 -0.30
-	) asFFIExternalArrayOfType: 'double'.
+		-0.685765 -0.795005 0.376681 0.288496 0.291609
+		-0.243126 -0.083631 0.120785 -0.241508 0.352529
+		0.064233 0.211787 -0.654056 0.417589 -0.301543
+	) 
 ]
 
 { #category : #'as yet unclassified' }
@@ -54,7 +52,7 @@ LapackTest >> expectedRank [
 { #category : #'as yet unclassified' }
 LapackTest >> expectedSingularValues [
 
-	^ #(18.66 15.99 10.01 8.51) asFFIExternalArrayOfType: 'double'.
+	^ #(18.661317 15.988138 10.013671 8.507254).
 ]
 
 { #category : #tests }
@@ -199,13 +197,13 @@ LapackTest >> testDgelsd [
 	self assert: info equals: 0.
 	
 	"Check the minimum norm solution"
-	"self assert: b closeTo: self expectedMinimumNormSolution."
+	self assert: b closeTo: self expectedMinimumNormSolution.
 	
 	"Check the rank of a matrix"
 	self assert: rankPtr value equals: self expectedRank.
 	
 	"Check singular values"
-	"self assert: s equals: self expectedSingularValues."
+	self assert: s closeTo: self expectedSingularValues.
 ]
 
 { #category : #tests }
