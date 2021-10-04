@@ -1,6 +1,6 @@
 Extension { #name : #Collection }
 
-{ #category : #'*Lapack' }
+{ #category : #'*Lapack-Tests' }
 Collection >> asFFIExternalArrayOfType: aType [
 	"Converts collection to FFIExternalArray.
 	

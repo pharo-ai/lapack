@@ -2,8 +2,8 @@ Class {
 	#name : #Lapack,
 	#superclass : #Object,
 	#pools : [
-		'LapackConstants',
-		'LapackTypes'
+		'AnObsoleteLapackConstants',
+		'AnObsoleteLapackTypes'
 	],
 	#category : #Lapack
 }
