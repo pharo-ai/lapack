@@ -104,7 +104,7 @@ Lapack >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: 
                 if INFO = i, i off-diagonal elements of an intermediate
                 bidiagonal form did not converge to zero."
 
-	^ self ffiCall: #(void dgelsd(
+	^ self ffiCall: #(void dgelsd_(
     	void* m, void* n, void* nrhs,
     	void* a, void* lda,
     	void* b, void* ldb,
