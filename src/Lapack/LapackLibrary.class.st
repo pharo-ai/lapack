@@ -7,7 +7,9 @@ Class {
 { #category : #'accessing - platform' }
 LapackLibrary >> macLibraryName [
 	
-	^ FFIMacLibraryFinder new 
+	"^ FFIMacLibraryFinder new 
 		userPaths: { '/usr/local/opt/lapack/lib/' };
-		findAnyLibrary: #('liblapacke.dylib').
+		findAnyLibrary: #('liblapack.dylib')."
+	
+	^ '/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib'
 ]

@@ -22,7 +22,7 @@ Lapack >> allocateOptimalWorkspaceOfSize: n [
 
 { #category : #ffi }
 Lapack >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: rank work: work lwork: lwork iwork: iwork info: info [
-
+ 
 	"Source: http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga94bd4a63a6dacf523e25ff617719f752.html
 	
 	DGELSD computes the minimum-norm solution to a real linear least squares problem:
@@ -104,15 +104,15 @@ Lapack >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: 
                 if INFO = i, i off-diagonal elements of an intermediate
                 bidiagonal form did not converge to zero."
 
-	^ self ffiCall: #(void LAPACK_dgelsd(
-    	const lapack_int* m, const lapack_int* n, const lapack_int* nrhs,
-    	double* a, const lapack_int* lda,
-    	double* b, const lapack_int* ldb,
-    	double* s,
-    	const double* rcond, lapack_int* rank,
-    	double* work, const lapack_int* lwork,
-    	lapack_int* iwork,
-    	lapack_int* info)).
+	^ self ffiCall: #(void dgelsd(
+    	void* m, void* n, void* nrhs,
+    	void* a, void* lda,
+    	void* b, void* ldb,
+    	void* s,
+    	void* rcond, void* rank,
+    	void* work, void* lwork,
+    	void* iwork,
+    	void* info)).
 ]
 
 { #category : #ffi }
@@ -124,8 +124,14 @@ Lapack >> ffiLibrary [
 { #category : #ffi }
 Lapack >> findOptimalWorkspace: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: rank work: work iwork: iwork info: info [
 
-	self ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: rank work: work lwork: -1 iwork: iwork info: info.
-	^ work at: 1 "should be int"
+	| lworkPtr workPtr |
+	lworkPtr := (FFIExternalValueHolder ofType: 'int') new value: -1.
+	workPtr := (FFIExternalValueHolder ofType: 'double') new value: -1.0.
+	info value: 10.
+
+	self ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: rank work: workPtr lwork: lworkPtr iwork: iwork info: info.
+	
+	^ workPtr value asInteger.
 	
 	" /* Locals */
         int m = M, n = N, nrhs = NRHS, lda = LDA, ldb = LDB, info, lwork, rank;
