@@ -20,13 +20,17 @@ Class {
 		'b',
 		's'
 	],
+	#pools : [
+		'LapackConstants',
+		'LapackTypes'
+	],
 	#category : #'Lapack-Tests'
 }
 
 { #category : #'as yet unclassified' }
 LapackTest >> doublePointer: aNumber [
 
-	^ (FFIExternalValueHolder ofType: 'double') new value: aNumber
+	^ LapackDoublePointerClass new value: aNumber
 ]
 
 { #category : #'as yet unclassified' }
@@ -127,7 +131,7 @@ LapackTest >> initializeArrayS [
 { #category : #'as yet unclassified' }
 LapackTest >> integerPointer: aNumber [
 
-	^ (FFIExternalValueHolder ofType: 'int') new value: aNumber
+	^ LapackIntegerPointerClass new value: aNumber
 ]
 
 { #category : #'as yet unclassified' }

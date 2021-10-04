@@ -2,7 +2,8 @@ Class {
 	#name : #LapackTypes,
 	#superclass : #SharedPool,
 	#classVars : [
-		'lapack_int'
+		'LapackDoublePointerClass',
+		'LapackIntegerPointerClass'
 	],
 	#category : #Lapack
 }
@@ -11,5 +12,6 @@ Class {
 LapackTypes class >> initialize [
 	"self initialize"
 	
-	lapack_int := #int.
+	LapackIntegerPointerClass := FFIExternalValueHolder ofType: 'int'.
+	LapackDoublePointerClass := FFIExternalValueHolder ofType: 'double'.
 ]
