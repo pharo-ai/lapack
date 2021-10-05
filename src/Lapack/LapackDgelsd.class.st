@@ -82,7 +82,7 @@ Source: http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_
 "
 Class {
 	#name : #LapackDgelsd,
-	#superclass : #Object,
+	#superclass : #LapackAlgorithm,
 	#instVars : [
 		'matrixA',
 		'matrixB',
@@ -195,12 +195,6 @@ LapackDgelsd >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s r
     	void* work, void* lwork,
     	void* iwork,
     	void* anInfo)).
-]
-
-{ #category : #accessing }
-LapackDgelsd >> ffiLibrary [ 
-
-	^ LapackLibrary
 ]
 
 { #category : #ffi }
@@ -330,7 +324,7 @@ LapackDgelsd >> singularValues [
 	^ singularValues
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 LapackDgelsd >> solve [
 
 	| singularValuesArray numberOfRowsPointer numberOfColumnsPointer numberOfRightHandSidesPointer leadingDimensionAPointer leadingDimensionBPointer rankPointer infoPointer reciprocalConditionNumberPointer workArray workArraySizePointer |
@@ -384,7 +378,7 @@ LapackDgelsd >> solve [
 		lwork: workArraySizePointer 
 		iwork: iworkArray 
 		info: infoPointer.
-		
+
 	minimumNormSolution := matrixB asArray.
 	singularValues := singularValuesArray asArray.
 	rank := rankPointer value.

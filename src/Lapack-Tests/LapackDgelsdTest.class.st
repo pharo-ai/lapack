@@ -3,7 +3,7 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'algorithm',
-		'example'
+		'fixture'
 	],
 	#category : #'Lapack-Tests'
 }
@@ -11,14 +11,14 @@ Class {
 { #category : #initialization }
 LapackDgelsdTest >> setUp [
 	super setUp.
-	example := LapackDgelsdExample new.
+	fixture := LapackDgelsdFixture new.
 	
 	algorithm := LapackDgelsd new
-		numberOfRows: example numberOfRows;
-		numberOfColumns: example numberOfColumns;
-		numberOfRightHandSides: example numberOfRightHandSides;
-		matrixA: example matrixA;
-		matrixB: example matrixB;
+		numberOfRows: fixture numberOfRows;
+		numberOfColumns: fixture numberOfColumns;
+		numberOfRightHandSides: fixture numberOfRightHandSides;
+		matrixA: fixture matrixA;
+		matrixB: fixture matrixB;
 		yourself.
 		
 	algorithm solve.
@@ -35,7 +35,7 @@ LapackDgelsdTest >> testMinimumNormSolution [
 	
 	self
 		assert: algorithm minimumNormSolution
-		closeTo: example minimumNormSolution.
+		closeTo: fixture minimumNormSolution.
 ]
 
 { #category : #accessing }
@@ -43,7 +43,7 @@ LapackDgelsdTest >> testOptimalWorkArraySize [
 	
 	self
 		assert: algorithm optimalWorkArraySize
-		equals: example optimalWorkArraySize.
+		equals: fixture optimalWorkArraySize.
 ]
 
 { #category : #accessing }
@@ -51,7 +51,7 @@ LapackDgelsdTest >> testRank [
 	
 	self
 		assert: algorithm rank
-		equals: example rank.
+		equals: fixture rank.
 ]
 
 { #category : #accessing }
@@ -59,5 +59,5 @@ LapackDgelsdTest >> testSingularValues [
 	
 	self
 		assert: algorithm singularValues
-		closeTo: example singularValues.
+		closeTo: fixture singularValues.
 ]

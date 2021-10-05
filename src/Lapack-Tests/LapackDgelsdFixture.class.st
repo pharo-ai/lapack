@@ -2,25 +2,24 @@
 Source: https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgelsd_ex.c.htm
 "
 Class {
-	#name : #LapackDgelsdExample,
+	#name : #LapackDgelsdFixture,
 	#superclass : #Object,
 	#category : #'Lapack-Tests'
 }
 
-{ #category : #'as yet unclassified' }
-LapackDgelsdExample >> matrixA [
+{ #category : #accessing }
+LapackDgelsdFixture >> matrixA [
 
 	^ #(
 		0.12 -6.91 -3.33 3.97
       	-8.19 2.22 -8.94 3.33
       	7.69 -5.12 -6.72 -2.74
       	-2.26 -9.08 -4.40 -7.92
-      	-4.71 9.96 -9.98 -3.20
-	)
+      	-4.71 9.96 -9.98 -3.20 )
 ]
 
-{ #category : #'as yet unclassified' }
-LapackDgelsdExample >> matrixB [
+{ #category : #accessing }
+LapackDgelsdFixture >> matrixB [
 	
 	^ #(
 		7.30 1.33 2.68 -9.62 0.00
@@ -30,7 +29,7 @@ LapackDgelsdExample >> matrixB [
 ]
 
 { #category : #accessing }
-LapackDgelsdExample >> minimumNormSolution [
+LapackDgelsdFixture >> minimumNormSolution [
 	
 	^ #(
 		-0.685765 -0.795005 0.376681 0.288496 0.291609
@@ -40,37 +39,37 @@ LapackDgelsdExample >> minimumNormSolution [
 ]
 
 { #category : #accessing }
-LapackDgelsdExample >> numberOfColumns [
+LapackDgelsdFixture >> numberOfColumns [
 	
 	^ 5
 ]
 
 { #category : #accessing }
-LapackDgelsdExample >> numberOfRightHandSides [
+LapackDgelsdFixture >> numberOfRightHandSides [
 	
 	^ 3
 ]
 
 { #category : #accessing }
-LapackDgelsdExample >> numberOfRows [
+LapackDgelsdFixture >> numberOfRows [
 	
 	^ 4
 ]
 
-{ #category : #'as yet unclassified' }
-LapackDgelsdExample >> optimalWorkArraySize [
+{ #category : #accessing }
+LapackDgelsdFixture >> optimalWorkArraySize [
 
 	^ 936
 ]
 
 { #category : #accessing }
-LapackDgelsdExample >> rank [
+LapackDgelsdFixture >> rank [
 
 	^ 4
 ]
 
 { #category : #accessing }
-LapackDgelsdExample >> singularValues [
+LapackDgelsdFixture >> singularValues [
 
 	^ #(18.661317 15.988138 10.013671 8.507254)
 ]
