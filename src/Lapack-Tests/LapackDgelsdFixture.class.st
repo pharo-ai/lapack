@@ -8,68 +8,63 @@ Class {
 }
 
 { #category : #accessing }
-LapackDgelsdFixture >> matrixA [
+LapackDgelsdFixture class >> matrixA [
 
-	^ #(
-		0.12 -6.91 -3.33 3.97
-      	-8.19 2.22 -8.94 3.33
-      	7.69 -5.12 -6.72 -2.74
-      	-2.26 -9.08 -4.40 -7.92
-      	-4.71 9.96 -9.98 -3.20 )
+	^ #( 0.12 -6.91 -3.33  3.97
+       -8.19  2.22 -8.94  3.33
+      	  7.69 -5.12 -6.72 -2.74
+      	 -2.26 -9.08 -4.40 -7.92
+      	 -4.71  9.96 -9.98 -3.20 )
 ]
 
 { #category : #accessing }
-LapackDgelsdFixture >> matrixB [
+LapackDgelsdFixture class >> matrixB [
 	
-	^ #(
-		7.30 1.33 2.68 -9.62 0.00
-		0.47 6.58 -1.71 -0.79 0.00
-		-6.28 -3.42 3.46 0.41 0.00
-	)
+	^ #( 7.30  1.33  2.68 -9.62 0.00
+		  0.47  6.58 -1.71 -0.79 0.00
+		 -6.28 -3.42  3.46  0.41 0.00 )
 ]
 
 { #category : #accessing }
-LapackDgelsdFixture >> minimumNormSolution [
+LapackDgelsdFixture class >> minimumNormSolution [
 	
-	^ #(
-		-0.685765 -0.795005 0.376681 0.288496 0.291609
-		-0.243126 -0.083631 0.120785 -0.241508 0.352529
-		0.064233 0.211787 -0.654056 0.417589 -0.301543
-	)
+	^ #( -0.685765 -0.795005  0.376681  0.288496  0.291609
+		  -0.243126 -0.083631  0.120785 -0.241508  0.352529
+		   0.064233  0.211787 -0.654056  0.417589 -0.301543 )
 ]
 
 { #category : #accessing }
-LapackDgelsdFixture >> numberOfColumns [
+LapackDgelsdFixture class >> numberOfColumns [
 	
 	^ 5
 ]
 
 { #category : #accessing }
-LapackDgelsdFixture >> numberOfRightHandSides [
+LapackDgelsdFixture class >> numberOfRightHandSides [
 	
 	^ 3
 ]
 
 { #category : #accessing }
-LapackDgelsdFixture >> numberOfRows [
+LapackDgelsdFixture class >> numberOfRows [
 	
 	^ 4
 ]
 
 { #category : #accessing }
-LapackDgelsdFixture >> optimalWorkArraySize [
+LapackDgelsdFixture class >> optimalWorkArraySize [
 
 	^ 936
 ]
 
 { #category : #accessing }
-LapackDgelsdFixture >> rank [
+LapackDgelsdFixture class >> rank [
 
 	^ 4
 ]
 
 { #category : #accessing }
-LapackDgelsdFixture >> singularValues [
+LapackDgelsdFixture class >> singularValues [
 
-	^ #(18.661317 15.988138 10.013671 8.507254)
+	^ #( 18.661317 15.988138 10.013671 8.507254 )
 ]

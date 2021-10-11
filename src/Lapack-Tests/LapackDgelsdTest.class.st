@@ -11,7 +11,7 @@ Class {
 { #category : #initialization }
 LapackDgelsdTest >> setUp [
 	super setUp.
-	fixture := LapackDgelsdFixture new.
+	fixture := LapackDgelsdFixture.
 	
 	algorithm := LapackDgelsd new
 		numberOfRows: fixture numberOfRows;
@@ -20,7 +20,7 @@ LapackDgelsdTest >> setUp [
 		matrixA: fixture matrixA;
 		matrixB: fixture matrixB;
 		yourself.
-		
+
 	algorithm solve.
 ]
 
