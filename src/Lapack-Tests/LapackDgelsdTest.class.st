@@ -8,8 +8,9 @@ Class {
 	#category : #'Lapack-Tests'
 }
 
-{ #category : #initialization }
+{ #category : #running }
 LapackDgelsdTest >> setUp [
+
 	super setUp.
 	fixture := LapackDgelsdFixture.
 	
@@ -21,16 +22,16 @@ LapackDgelsdTest >> setUp [
 		matrixB: fixture matrixB;
 		yourself.
 
-	algorithm solve.
+	algorithm solve
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 LapackDgelsdTest >> testInfo [
 	
 	self assert: algorithm info equals: 0.
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 LapackDgelsdTest >> testMinimumNormSolution [
 	
 	self
@@ -38,7 +39,7 @@ LapackDgelsdTest >> testMinimumNormSolution [
 		closeTo: fixture minimumNormSolution.
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 LapackDgelsdTest >> testOptimalWorkArraySize [
 	
 	self
@@ -46,7 +47,7 @@ LapackDgelsdTest >> testOptimalWorkArraySize [
 		equals: fixture optimalWorkArraySize.
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 LapackDgelsdTest >> testRank [
 	
 	self
@@ -54,7 +55,7 @@ LapackDgelsdTest >> testRank [
 		equals: fixture rank.
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 LapackDgelsdTest >> testSingularValues [
 	
 	self

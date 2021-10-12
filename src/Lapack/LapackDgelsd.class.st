@@ -1,11 +1,26 @@
 "
 Source: http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga94bd4a63a6dacf523e25ff617719f752.html
 	
-	DGELSD computes the minimum-norm solution to a real linear least squares problem:
-	    minimize 2-norm(| b - A*x |)
-   using the singular value decomposition (SVD) of A. A is an M-by-N matrix
-   which may be rank-deficient.
+DGELSD computes the minimum-norm solution to a real linear least squares problem:
+	   minimize 2-norm(| b - A*x |)
+using the singular value decomposition (SVD) of A. A is an M-by-N matrix which may be rank-deficient.
 
+How to use me:
+First, you have to initialize me and set some parameteres, like:
+
+algorithm := LapackDgelsd new
+	numberOfRows: fixture numberOfRows;
+	numberOfColumns: fixture numberOfColumns;
+	numberOfRightHandSides: fixture numberOfRightHandSides;
+	matrixA: fixture matrixA;
+	matrixB: fixture matrixB;
+	yourself.
+algorithm solve
+
+And then, just call the method solve. To get the answer call my accessor methods.
+For more info, take a look at my test class.
+
+Parameters info:
 	- M is INTEGER
           The number of rows of A. M >= 0.
 
@@ -186,15 +201,21 @@ LapackDgelsd >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s r
                 if INFO = i, i off-diagonal elements of an intermediate
                 bidiagonal form did not converge to zero."
 
-	^ self ffiCall: #(void dgelsd_(
-    	void* m, void* n, void* nrhs,
-    	void* a, void* lda,
-    	void* b, void* ldb,
+	^ self ffiCall: #( void dgelsd_(
+		void* m,
+		void* n,
+		void* nrhs,
+    	void* a,
+		void* lda,
+    	void* b,
+		void* ldb,
     	void* s,
-    	void* rcond, void* aRank,
-    	void* work, void* lwork,
+    	void* rcond,
+		void* aRank,
+    	void* work,
+		void* lwork,
     	void* iwork,
-    	void* anInfo)).
+    	void* anInfo ) )
 ]
 
 { #category : #ffi }
@@ -206,7 +227,7 @@ LapackDgelsd >> findOptimalWorkspace: m n: n nrhs: nrhs a: a lda: lda b: b ldb: 
 
 	self ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: aRank work: workPtr lwork: lworkPtr iwork: iwork info: anInfo.
 	
-	^ workPtr value asInteger.
+	^ workPtr value asInteger
 ]
 
 { #category : #accessing }
@@ -242,13 +263,13 @@ LapackDgelsd >> leadingDimensionB: aNumber [
 { #category : #accessing }
 LapackDgelsd >> matrixA: anArray [
 
-	matrixA := anArray asFFIExternalArrayOfType: 'double'.
+	matrixA := anArray asFFIExternalArrayOfType: 'double'
 ]
 
 { #category : #accessing }
 LapackDgelsd >> matrixB: anArray [
 
-	matrixB := anArray asFFIExternalArrayOfType: 'double'.
+	matrixB := anArray asFFIExternalArrayOfType: 'double'
 ]
 
 { #category : #accessing }

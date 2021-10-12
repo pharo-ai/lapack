@@ -8,20 +8,20 @@ Class {
 	#category : #Lapack
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #factory }
 LapackPointerCreator class >> doublePointer: aNumber [
 
 	^ DoublePointerClass new value: aNumber
 ]
 
-{ #category : #initialization }
+{ #category : #'class initialization' }
 LapackPointerCreator class >> initialize [
 	
 	DoublePointerClass := FFIExternalValueHolder ofType: 'double'.
-	IntegerPointerClass := FFIExternalValueHolder ofType: 'int'.
+	IntegerPointerClass := FFIExternalValueHolder ofType: 'int'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #factory }
 LapackPointerCreator class >> integerPointer: aNumber [
 
 	^ IntegerPointerClass new value: aNumber
