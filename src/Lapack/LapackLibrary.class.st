@@ -11,3 +11,11 @@ LapackLibrary >> macLibraryName [
 		userPaths: { '/usr/local/opt/lapack/lib/' };
 		findAnyLibrary: #('liblapack.dylib').
 ]
+
+{ #category : #'accessing - platform' }
+LapackLibrary >> win32LibraryName [
+
+	^ FFIWindowsLibraryFinder new
+		userPaths: { '/usr/local/opt/lapack/lib/' };
+		findAnyLibrary: #( 'liblapack.dylib' )
+]
