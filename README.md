@@ -37,7 +37,8 @@ If you are new to baselines and Metacello, check out the [Baselines](https://git
 
 Currently, we only bound one routine: `dgelsd()` that:
 >computes the minimum-norm solution to a linear least squares problem for GE matrices.
-To use that method, you only need to:
+
+To use the method, you only need to:
 
 ```st
 matrixA := #( 0.12 -6.91 -3.33  3.97 -8.19
