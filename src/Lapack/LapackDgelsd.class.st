@@ -251,7 +251,7 @@ LapackDgelsd >> leadingDimensionA: aNumber [
 { #category : #accessing }
 LapackDgelsd >> leadingDimensionB [
 
-	^ leadingDimensionB ifNil: [ self numberOfColumns ]
+	^ leadingDimensionB ifNil: [ self numberOfRows max: self numberOfColumns ]
 ]
 
 { #category : #accessing }
