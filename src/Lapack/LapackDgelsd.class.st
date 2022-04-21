@@ -269,7 +269,9 @@ LapackDgelsd >> matrixA: anArray [
 { #category : #accessing }
 LapackDgelsd >> matrixB: anArray [
 
-	matrixB := anArray asFFIExternalArrayOfType: 'double'
+	matrixB := anArray
+		asFFIExternalArrayOfType: 'double'
+		size: (anArray size max: (numberOfRightHandSides * numberOfColumns))
 ]
 
 { #category : #accessing }
