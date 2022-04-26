@@ -11,5 +11,6 @@ BaselineOfLapack >> baseline: spec [
 		"Packages"
 		spec 
 			package: 'Lapack';
-			package: 'Lapack-Tests' with: [ spec requires: #('Lapack') ] ].
+			package: 'Lapack-Algorithms' with: [ spec requires: #('Lapack') ];
+			package: 'Lapack-Tests' with: [ spec requires: #('Lapack' 'Lapack-Algorithms') ] ].
 ]

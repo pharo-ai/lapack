@@ -2,7 +2,9 @@
 Source: http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga94bd4a63a6dacf523e25ff617719f752.html
 	
 DGELSD computes the minimum-norm solution to a real linear least squares problem:
-	   minimize 2-norm(| b - A*x |)
+
+$\text{minimize }|| b - Ax ||_2$
+
 using the singular value decomposition (SVD) of A. A is an M-by-N matrix which may be rank-deficient.
 
 How to use me:
@@ -114,7 +116,7 @@ Class {
 		'minimumNormSolution',
 		'iworkArray'
 	],
-	#category : #Lapack
+	#category : #'Lapack-Algorithms'
 }
 
 { #category : #ffi }
@@ -219,7 +221,7 @@ LapackDgelsd >> ffiDgelsdM: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s r
 ]
 
 { #category : #ffi }
-LapackDgelsd >> findOptimalWorkspace: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: aRank work: work iwork: iwork info: anInfo [
+LapackDgelsd >> findOptimalWorkspace: m n: n nrhs: nrhs a: a lda: lda b: b ldb: ldb s: s rcond: rcond rank: aRank iwork: iwork info: anInfo [
 
 	| lworkPtr workPtr |
 	lworkPtr := LapackPointerCreator integerPointer:  -1.
@@ -379,7 +381,6 @@ LapackDgelsd >> solve [
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
 		rank: rankPointer 
-		work: nil  
 		iwork: iworkArray 
 		info: infoPointer.
 		
