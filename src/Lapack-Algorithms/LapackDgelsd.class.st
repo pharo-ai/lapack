@@ -265,15 +265,13 @@ LapackDgelsd >> leadingDimensionB: aNumber [
 { #category : #accessing }
 LapackDgelsd >> matrixA: anArray [
 
-	matrixA := anArray asFFIExternalArrayOfType: 'double'
+	matrixA := anArray
 ]
 
 { #category : #accessing }
 LapackDgelsd >> matrixB: anArray [
 
 	matrixB := anArray
-		asFFIExternalArrayOfType: 'double'
-		size: (anArray size max: (numberOfRightHandSides * numberOfColumns))
 ]
 
 { #category : #accessing }
@@ -374,9 +372,9 @@ LapackDgelsd >> solve [
 		findOptimalWorkspace: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixA 
+		a: matrixA contents
 		lda: leadingDimensionAPointer 
-		b: matrixB 
+		b: matrixB contents
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
@@ -391,9 +389,9 @@ LapackDgelsd >> solve [
 		ffiDgelsdM: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixA 
+		a: matrixA contents
 		lda: leadingDimensionAPointer 
-		b: matrixB 
+		b: matrixB contents
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
