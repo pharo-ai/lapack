@@ -350,7 +350,7 @@ LapackDgelsd >> singularValues [
 { #category : #running }
 LapackDgelsd >> solve [
 
-	| singularValuesArray numberOfRowsPointer numberOfColumnsPointer numberOfRightHandSidesPointer leadingDimensionAPointer leadingDimensionBPointer rankPointer infoPointer reciprocalConditionNumberPointer workArray workArraySizePointer |
+	| singularValuesArray numberOfRowsPointer numberOfColumnsPointer numberOfRightHandSidesPointer leadingDimensionAPointer leadingDimensionBPointer rankPointer infoPointer reciprocalConditionNumberPointer workArray workArraySizePointer matrixAForLapack matrixBForLapack |
 
 	singularValuesArray := FFIExternalArray newType: 'double' size: numberOfRows.
 	
@@ -368,13 +368,16 @@ LapackDgelsd >> solve [
 	infoPointer := LapackPointerCreator integerPointer: 0.
 	reciprocalConditionNumberPointer := LapackPointerCreator doublePointer: self reciprocalConditionNumber. 
 	
+	matrixAForLapack := matrixA contentsForLapack.
+	matrixBForLapack := matrixB contentsForLapack.
+	
 	workArraySize := self
 		findOptimalWorkspace: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixA contents
+		a: matrixAForLapack
 		lda: leadingDimensionAPointer 
-		b: matrixB contents
+		b: matrixBForLapack
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
@@ -389,9 +392,9 @@ LapackDgelsd >> solve [
 		ffiDgelsdM: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixA contents
+		a: matrixAForLapack
 		lda: leadingDimensionAPointer 
-		b: matrixB contents
+		b: matrixBForLapack
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
