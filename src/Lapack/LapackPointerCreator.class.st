@@ -5,7 +5,7 @@ Class {
 		'DoublePointerClass',
 		'IntegerPointerClass'
 	],
-	#category : #'AI-Lapack'
+	#category : #Lapack
 }
 
 { #category : #factory }

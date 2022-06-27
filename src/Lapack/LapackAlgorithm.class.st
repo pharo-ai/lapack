@@ -1,7 +1,7 @@
 Class {
 	#name : #LapackAlgorithm,
 	#superclass : #Object,
-	#category : #'AI-Lapack'
+	#category : #Lapack
 }
 
 { #category : #accessing }

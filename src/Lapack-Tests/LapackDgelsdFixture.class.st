@@ -4,7 +4,7 @@ Source: https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11
 Class {
 	#name : #LapackDgelsdFixture,
 	#superclass : #Object,
-	#category : #'AI-Lapack-Tests'
+	#category : #'Lapack-Tests'
 }
 
 { #category : #accessing }

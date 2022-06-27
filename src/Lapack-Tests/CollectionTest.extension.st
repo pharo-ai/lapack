@@ -1,6 +1,6 @@
 Extension { #name : #CollectionTest }
 
-{ #category : #'*AI-Lapack-Tests' }
+{ #category : #'*Lapack-Tests' }
 CollectionTest >> testAsFFIExternalArrayOfType [
 
 	| collection externalArray |

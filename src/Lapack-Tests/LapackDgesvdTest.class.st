@@ -5,7 +5,7 @@ Class {
 		'algorithm',
 		'fixture'
 	],
-	#category : #'AI-Lapack-Tests'
+	#category : #'Lapack-Tests'
 }
 
 { #category : #initialization }

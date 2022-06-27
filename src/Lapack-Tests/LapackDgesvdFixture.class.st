@@ -4,7 +4,7 @@ Source: https://www.intel.com/content/www/us/en/develop/documentation/onemkl-lap
 Class {
 	#name : #LapackDgesvdFixture,
 	#superclass : #Object,
-	#category : #'AI-Lapack-Tests'
+	#category : #'Lapack-Tests'
 }
 
 { #category : #accessing }
