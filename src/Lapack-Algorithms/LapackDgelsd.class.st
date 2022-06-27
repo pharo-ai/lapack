@@ -404,8 +404,8 @@ LapackDgelsd >> solve [
 		iwork: iworkArray 
 		info: infoPointer.
 
-	minimumNormSolution := matrixB asArray.
-	singularValues := singularValuesArray asArray.
+	minimumNormSolution := matrixBForLapack.
+	singularValues := singularValuesArray.
 	rank := rankPointer value.
 	info := infoPointer value.
 ]

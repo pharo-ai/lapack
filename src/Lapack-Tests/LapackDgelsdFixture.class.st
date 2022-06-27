@@ -10,18 +10,24 @@ Class {
 { #category : #accessing }
 LapackDgelsdFixture class >> matrixA [
 
-	^ #( 0.12 -6.91 -3.33  3.97 -8.19
+	^ AINativeFloatContiguousColumnMajorMatrix
+		values: #( 0.12 -6.91 -3.33  3.97 -8.19
 		  2.22 -8.94  3.33  7.69 -5.12
 		 -6.72 -2.74 -2.26 -9.08 -4.40
-		 -7.92 -4.71  9.96 -9.98 -3.20 )
+		 -7.92 -4.71  9.96 -9.98 -3.20 ) asFloat64Array
+		rows: self numberOfRows
+		columns: self numberOfColumns
 ]
 
 { #category : #accessing }
 LapackDgelsdFixture class >> matrixB [
 	
-	^ #( 7.30  1.33  2.68 -9.62 0.00
+	^ AINativeFloatContiguousColumnMajorMatrix
+		values: #( 7.30  1.33  2.68 -9.62 0.00
 		  0.47  6.58 -1.71 -0.79 0.00
-		 -6.28 -3.42  3.46  0.41 0.00 )
+		 -6.28 -3.42  3.46  0.41 0.00 ) asFloat64Array
+		rows: 15
+		columns: 1
 ]
 
 { #category : #accessing }
