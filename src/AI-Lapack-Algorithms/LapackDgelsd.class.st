@@ -116,7 +116,7 @@ Class {
 		'minimumNormSolution',
 		'iworkArray'
 	],
-	#category : #'Lapack-Algorithms'
+	#category : #'AI-Lapack-Algorithms'
 }
 
 { #category : #ffi }

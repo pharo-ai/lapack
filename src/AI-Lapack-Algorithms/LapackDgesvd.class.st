@@ -130,7 +130,7 @@ Class {
 		'workArraySize',
 		'info'
 	],
-	#category : #'Lapack-Algorithms'
+	#category : #'AI-Lapack-Algorithms'
 }
 
 { #category : #'as yet unclassified' }

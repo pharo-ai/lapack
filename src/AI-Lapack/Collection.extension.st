@@ -1,6 +1,6 @@
 Extension { #name : #Collection }
 
-{ #category : #'*Lapack' }
+{ #category : #'*AI-Lapack' }
 Collection >> asFFIExternalArrayOfType: aType [
 	"Converts collection to FFIExternalArray.
 	
@@ -10,7 +10,7 @@ Collection >> asFFIExternalArrayOfType: aType [
 	^ self asFFIExternalArrayOfType: aType size: self size
 ]
 
-{ #category : #'*Lapack' }
+{ #category : #'*AI-Lapack' }
 Collection >> asFFIExternalArrayOfType: aType size: aNumber [
 	"Converts collection to FFIExternalArray.
 	The size must be greater or equal to the size of self.

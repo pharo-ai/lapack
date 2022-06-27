@@ -1,7 +1,7 @@
 Class {
 	#name : #LapackeLibrary,
 	#superclass : #FFILibrary,
-	#category : #Lapack
+	#category : #'AI-Lapack'
 }
 
 { #category : #'accessing - platform' }
