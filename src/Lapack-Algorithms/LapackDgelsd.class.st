@@ -1,5 +1,7 @@
 "
-Source: http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga94bd4a63a6dacf523e25ff617719f752.html
+Source:
+
+http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga94bd4a63a6dacf523e25ff617719f752.html
 	
 DGELSD computes the minimum-norm solution to a real linear least squares problem:
 
@@ -10,6 +12,7 @@ using the singular value decomposition (SVD) of A. A is an M-by-N matrix which m
 How to use me:
 First, you have to initialize me and set some parameteres, like:
 
+```language=Pharo
 algorithm := LapackDgelsd new
 	numberOfRows: fixture numberOfRows;
 	numberOfColumns: fixture numberOfColumns;
@@ -18,6 +21,7 @@ algorithm := LapackDgelsd new
 	matrixB: fixture matrixB;
 	yourself.
 algorithm solve
+```
 
 And then, just call the method solve. To get the answer call my accessor methods.
 For more info, take a look at my test class.
@@ -369,7 +373,7 @@ LapackDgelsd >> solve [
 	reciprocalConditionNumberPointer := LapackPointerCreator doublePointer: self reciprocalConditionNumber. 
 	
 	matrixAForLapack := matrixA contentsForLapack.
-	matrixBForLapack := matrixB contentsForLapack.
+	matrixBForLapack := matrixB contentsForLapackOfAtLeast: numberOfColumns * numberOfRightHandSides.
 	
 	workArraySize := self
 		findOptimalWorkspace: numberOfRowsPointer 

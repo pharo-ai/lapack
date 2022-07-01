@@ -1,3 +1,6 @@
+"
+I am a class that provides the location of the lapackE library
+"
 Class {
 	#name : #LapackeLibrary,
 	#superclass : #FFILibrary,

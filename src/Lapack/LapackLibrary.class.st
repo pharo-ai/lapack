@@ -1,3 +1,6 @@
+"
+I am a class for that provides the Lapack library user path.
+"
 Class {
 	#name : #LapackLibrary,
 	#superclass : #FFILibrary,
