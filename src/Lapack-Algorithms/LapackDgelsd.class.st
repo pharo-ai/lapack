@@ -267,15 +267,15 @@ LapackDgelsd >> leadingDimensionB: aNumber [
 ]
 
 { #category : #accessing }
-LapackDgelsd >> matrixA: anArray [
+LapackDgelsd >> matrixA: aMatrix [
 
-	matrixA := anArray
+	matrixA := aMatrix contentsForLapack
 ]
 
 { #category : #accessing }
-LapackDgelsd >> matrixB: anArray [
+LapackDgelsd >> matrixB: aMatrix [
 
-	matrixB := anArray
+	matrixB := aMatrix contentsForLapackOfAtLeast: numberOfColumns * numberOfRightHandSides.
 ]
 
 { #category : #accessing }
@@ -354,7 +354,7 @@ LapackDgelsd >> singularValues [
 { #category : #running }
 LapackDgelsd >> solve [
 
-	| singularValuesArray numberOfRowsPointer numberOfColumnsPointer numberOfRightHandSidesPointer leadingDimensionAPointer leadingDimensionBPointer rankPointer infoPointer reciprocalConditionNumberPointer workArray workArraySizePointer matrixAForLapack matrixBForLapack |
+	| singularValuesArray numberOfRowsPointer numberOfColumnsPointer numberOfRightHandSidesPointer leadingDimensionAPointer leadingDimensionBPointer rankPointer infoPointer reciprocalConditionNumberPointer workArray workArraySizePointer |
 
 	singularValuesArray := FFIExternalArray newType: 'double' size: numberOfRows.
 	
@@ -372,16 +372,13 @@ LapackDgelsd >> solve [
 	infoPointer := LapackPointerCreator integerPointer: 0.
 	reciprocalConditionNumberPointer := LapackPointerCreator doublePointer: self reciprocalConditionNumber. 
 	
-	matrixAForLapack := matrixA contentsForLapack.
-	matrixBForLapack := matrixB contentsForLapackOfAtLeast: numberOfColumns * numberOfRightHandSides.
-	
 	workArraySize := self
 		findOptimalWorkspace: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixAForLapack
+		a: matrixA
 		lda: leadingDimensionAPointer 
-		b: matrixBForLapack
+		b: matrixB
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
@@ -396,9 +393,9 @@ LapackDgelsd >> solve [
 		ffiDgelsdM: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixAForLapack
+		a: matrixA
 		lda: leadingDimensionAPointer 
-		b: matrixBForLapack
+		b: matrixB
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
@@ -408,7 +405,7 @@ LapackDgelsd >> solve [
 		iwork: iworkArray 
 		info: infoPointer.
 
-	minimumNormSolution := matrixBForLapack.
+	minimumNormSolution := matrixB.
 	singularValues := singularValuesArray.
 	rank := rankPointer value.
 	info := infoPointer value.
