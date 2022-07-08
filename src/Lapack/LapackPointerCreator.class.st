@@ -1,3 +1,6 @@
+"
+I am a class that facilitates the constructions of integer and double pointers. Those pointers are needed to be sent to lapack.
+"
 Class {
 	#name : #LapackPointerCreator,
 	#superclass : #Object,

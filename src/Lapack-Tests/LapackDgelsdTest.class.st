@@ -12,7 +12,7 @@ Class {
 LapackDgelsdTest >> setUp [
 
 	super setUp.
-	fixture := LapackDgelsdFixture.
+	fixture := LapackDgelsdFixture new.
 	
 	algorithm := LapackDgelsd new
 		numberOfRows: fixture numberOfRows;
@@ -33,32 +33,28 @@ LapackDgelsdTest >> testInfo [
 
 { #category : #tests }
 LapackDgelsdTest >> testMinimumNormSolution [
-	
-	self
-		assert: algorithm minimumNormSolution
-		closeTo: fixture minimumNormSolution.
+
+	algorithm minimumNormSolution
+		with: fixture minimumNormSolution
+		do: [ :elem1 :elem2 | self assert: elem1 closeTo: elem2 ]
 ]
 
 { #category : #tests }
 LapackDgelsdTest >> testOptimalWorkArraySize [
-	
-	self
-		assert: algorithm optimalWorkArraySize
-		equals: fixture optimalWorkArraySize.
+
+	self assert: algorithm optimalWorkArraySize equals: fixture optimalWorkArraySize
 ]
 
 { #category : #tests }
 LapackDgelsdTest >> testRank [
-	
-	self
-		assert: algorithm rank
-		equals: fixture rank.
+
+	self assert: algorithm rank equals: fixture rank
 ]
 
 { #category : #tests }
 LapackDgelsdTest >> testSingularValues [
-	
-	self
-		assert: algorithm singularValues
-		closeTo: fixture singularValues.
+
+	algorithm singularValues
+		with: fixture singularValues
+		do: [ :elem1 :elem2 | self assert: elem1 closeTo: elem2 ]
 ]

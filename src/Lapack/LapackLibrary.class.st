@@ -1,3 +1,6 @@
+"
+I am a class for that provides the Lapack library user path.
+"
 Class {
 	#name : #LapackLibrary,
 	#superclass : #FFILibrary,
@@ -8,7 +11,7 @@ Class {
 LapackLibrary >> macLibraryName [
 	
 	^ FFIMacLibraryFinder new 
-		userPaths: { '/usr/local/opt/lapack/lib/' };
+		userPaths: { '/usr/local/opt/lapack/lib/'. '/opt/homebrew/opt/lapack/lib/' };
 		findAnyLibrary: #('liblapack.dylib').
 ]
 

@@ -1,5 +1,7 @@
 "
-Source: http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga94bd4a63a6dacf523e25ff617719f752.html
+Source:
+
+http://www.netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga94bd4a63a6dacf523e25ff617719f752.html
 	
 DGELSD computes the minimum-norm solution to a real linear least squares problem:
 
@@ -10,6 +12,7 @@ using the singular value decomposition (SVD) of A. A is an M-by-N matrix which m
 How to use me:
 First, you have to initialize me and set some parameteres, like:
 
+```language=Pharo
 algorithm := LapackDgelsd new
 	numberOfRows: fixture numberOfRows;
 	numberOfColumns: fixture numberOfColumns;
@@ -18,6 +21,7 @@ algorithm := LapackDgelsd new
 	matrixB: fixture matrixB;
 	yourself.
 algorithm solve
+```
 
 And then, just call the method solve. To get the answer call my accessor methods.
 For more info, take a look at my test class.
@@ -263,17 +267,15 @@ LapackDgelsd >> leadingDimensionB: aNumber [
 ]
 
 { #category : #accessing }
-LapackDgelsd >> matrixA: anArray [
+LapackDgelsd >> matrixA: aMatrix [
 
-	matrixA := anArray asFFIExternalArrayOfType: 'double'
+	matrixA := aMatrix contentsForLapack
 ]
 
 { #category : #accessing }
-LapackDgelsd >> matrixB: anArray [
+LapackDgelsd >> matrixB: aMatrix [
 
-	matrixB := anArray
-		asFFIExternalArrayOfType: 'double'
-		size: (anArray size max: (numberOfRightHandSides * numberOfColumns))
+	matrixB := aMatrix contentsForLapackOfAtLeast: numberOfColumns * numberOfRightHandSides.
 ]
 
 { #category : #accessing }
@@ -374,9 +376,9 @@ LapackDgelsd >> solve [
 		findOptimalWorkspace: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixA 
+		a: matrixA
 		lda: leadingDimensionAPointer 
-		b: matrixB 
+		b: matrixB
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
@@ -391,9 +393,9 @@ LapackDgelsd >> solve [
 		ffiDgelsdM: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixA 
+		a: matrixA
 		lda: leadingDimensionAPointer 
-		b: matrixB 
+		b: matrixB
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
@@ -403,8 +405,8 @@ LapackDgelsd >> solve [
 		iwork: iworkArray 
 		info: infoPointer.
 
-	minimumNormSolution := matrixB asArray.
-	singularValues := singularValuesArray asArray.
+	minimumNormSolution := matrixB.
+	singularValues := singularValuesArray.
 	rank := rankPointer value.
 	info := infoPointer value.
 ]
