@@ -8,7 +8,7 @@ Class {
 	#category : #'Lapack-Tests'
 }
 
-{ #category : #initialization }
+{ #category : #running }
 LapackDgesvdTest >> setUp [
 
 	super setUp.
@@ -31,24 +31,24 @@ LapackDgesvdTest >> testInfo [
 
 { #category : #tests }
 LapackDgesvdTest >> testMatrixU [
-	
-	self
-		assert: (algorithm matrixU first: fixture numberOfRows * fixture numberOfColumns)
-		closeTo: fixture matrixU.
+
+	(algorithm matrixU first: fixture numberOfRows * fixture numberOfColumns)
+		with: fixture matrixU
+		do: [ :real :expected | self assert: real closeTo: expected ]
 ]
 
 { #category : #tests }
 LapackDgesvdTest >> testMatrixVTransposed [
-	
-	self
-		assert: algorithm matrixVTransposed
-		closeTo: fixture matrixVTransposed.
+
+	algorithm matrixVTransposed
+		with: fixture matrixVTransposed
+		do: [ :real :expected | self assert: real closeTo: expected ]
 ]
 
 { #category : #tests }
 LapackDgesvdTest >> testSingularValues [
-	
-	self
-		assert: (algorithm singularValues first: fixture numberOfColumns)
-		closeTo: fixture singularValues.
+
+	(algorithm singularValues first: fixture numberOfColumns)
+		with: fixture singularValues
+		do: [ :real :expected | self assert: real closeTo: expected ]
 ]

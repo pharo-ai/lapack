@@ -34,7 +34,7 @@ LapackDgelsdTest >> testInfo [
 { #category : #tests }
 LapackDgelsdTest >> testMinimumNormSolution [
 
-	algorithm minimumNormSolution
+	algorithm minimumNormSolution contents
 		with: fixture minimumNormSolution
 		do: [ :elem1 :elem2 | self assert: elem1 closeTo: elem2 ]
 ]

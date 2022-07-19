@@ -1,4 +1,6 @@
 "
+WIP: This algorithm is not fully working yet. Please delete this comment when fixing the algorithm.
+
 **Source:** [http://www.netlib.org/lapack/explore-html/d1/d7e/group__double_g_esing_ga84fdf22a62b12ff364621e4713ce02f2.html](http://www.netlib.org/lapack/explore-html/d1/d7e/group__double_g_esing_ga84fdf22a62b12ff364621e4713ce02f2.html)
 
 DGESVD computes the singular value decomposition (SVD) of a real
@@ -114,21 +116,14 @@ $A = U\Sigma V^\top$
 "
 Class {
 	#name : #LapackDgesvd,
-	#superclass : #LapackAlgorithm,
+	#superclass : #LapackDGE,
 	#instVars : [
 		'jobU',
 		'jobVTransposed',
-		'numberOfRows',
-		'numberOfColumns',
-		'matrixA',
-		'leadingDimensionA',
-		'singularValues',
 		'matrixU',
 		'leadingDimensionU',
 		'matrixVTransposed',
-		'leadingDimensionVTransposed',
-		'workArraySize',
-		'info'
+		'leadingDimensionVTransposed'
 	],
 	#category : #'Lapack-Algorithms'
 }
@@ -293,18 +288,6 @@ LapackDgesvd >> initialize [
 ]
 
 { #category : #accessing }
-LapackDgesvd >> leadingDimensionA [
-
-	^ leadingDimensionA ifNil: [ 1 max: self numberOfRows ]
-]
-
-{ #category : #accessing }
-LapackDgesvd >> leadingDimensionA: aNumber [
-
-	leadingDimensionA := aNumber
-]
-
-{ #category : #accessing }
 LapackDgesvd >> leadingDimensionU [
 
 	^ leadingDimensionU ifNil: [ 1 max: self numberOfRows ]
@@ -344,36 +327,6 @@ LapackDgesvd >> matrixU [
 LapackDgesvd >> matrixVTransposed [
 
 	^ matrixVTransposed
-]
-
-{ #category : #accessing }
-LapackDgesvd >> numberOfColumns [
-
-	^ numberOfColumns
-]
-
-{ #category : #accessing }
-LapackDgesvd >> numberOfColumns: aNumber [
-
-	numberOfColumns := aNumber
-]
-
-{ #category : #accessing }
-LapackDgesvd >> numberOfRows [
-
-	^ numberOfRows
-]
-
-{ #category : #accessing }
-LapackDgesvd >> numberOfRows: aNumber [
-
-	numberOfRows := aNumber
-]
-
-{ #category : #accessing }
-LapackDgesvd >> singularValues [
-
-	^ singularValues 
 ]
 
 { #category : #running }

@@ -103,20 +103,13 @@ Parameters info:
 "
 Class {
 	#name : #LapackDgelsd,
-	#superclass : #LapackAlgorithm,
+	#superclass : #LapackDGE,
 	#instVars : [
-		'matrixA',
 		'matrixB',
-		'numberOfRows',
-		'numberOfColumns',
 		'numberOfRightHandSides',
-		'leadingDimensionA',
 		'leadingDimensionB',
-		'singularValues',
 		'rank',
-		'info',
 		'reciprocalConditionNumber',
-		'workArraySize',
 		'minimumNormSolution',
 		'iworkArray'
 	],
@@ -237,24 +230,6 @@ LapackDgelsd >> findOptimalWorkspace: m n: n nrhs: nrhs a: a lda: lda b: b ldb: 
 ]
 
 { #category : #accessing }
-LapackDgelsd >> info [
-
-	^ info
-]
-
-{ #category : #accessing }
-LapackDgelsd >> leadingDimensionA [
-
-	^ leadingDimensionA ifNil: [ self numberOfRows ]
-]
-
-{ #category : #accessing }
-LapackDgelsd >> leadingDimensionA: aNumber [
-
-	leadingDimensionA := aNumber 
-]
-
-{ #category : #accessing }
 LapackDgelsd >> leadingDimensionB [
 
 	^ leadingDimensionB ifNil: [ self numberOfRows max: self numberOfColumns ]
@@ -267,33 +242,15 @@ LapackDgelsd >> leadingDimensionB: aNumber [
 ]
 
 { #category : #accessing }
-LapackDgelsd >> matrixA: aMatrix [
-
-	matrixA := aMatrix contentsForLapack
-]
-
-{ #category : #accessing }
 LapackDgelsd >> matrixB: aMatrix [
 
-	matrixB := aMatrix contentsForLapackOfAtLeast: numberOfColumns * numberOfRightHandSides.
+	matrixB := aMatrix
 ]
 
 { #category : #accessing }
 LapackDgelsd >> minimumNormSolution [
 	
 	^ minimumNormSolution
-]
-
-{ #category : #accessing }
-LapackDgelsd >> numberOfColumns [
-
-	^ numberOfColumns
-]
-
-{ #category : #accessing }
-LapackDgelsd >> numberOfColumns: aNumber [
-
-	numberOfColumns := aNumber
 ]
 
 { #category : #accessing }
@@ -306,18 +263,6 @@ LapackDgelsd >> numberOfRightHandSides [
 LapackDgelsd >> numberOfRightHandSides: aNumber [
 
 	numberOfRightHandSides := aNumber
-]
-
-{ #category : #accessing }
-LapackDgelsd >> numberOfRows [
-
-	^ numberOfRows
-]
-
-{ #category : #accessing }
-LapackDgelsd >> numberOfRows: aNumber [
-
-	numberOfRows := aNumber
 ]
 
 { #category : #accessing }
@@ -345,16 +290,10 @@ LapackDgelsd >> reciprocalConditionNumber: aNumber [
 	reciprocalConditionNumber := aNumber
 ]
 
-{ #category : #accessing }
-LapackDgelsd >> singularValues [
-	
-	^ singularValues
-]
-
 { #category : #running }
 LapackDgelsd >> solve [
 
-	| singularValuesArray numberOfRowsPointer numberOfColumnsPointer numberOfRightHandSidesPointer leadingDimensionAPointer leadingDimensionBPointer rankPointer infoPointer reciprocalConditionNumberPointer workArray workArraySizePointer |
+	| singularValuesArray numberOfRowsPointer numberOfColumnsPointer numberOfRightHandSidesPointer leadingDimensionAPointer leadingDimensionBPointer rankPointer infoPointer reciprocalConditionNumberPointer workArray workArraySizePointer matrixAForLapack matrixBForLapack |
 
 	singularValuesArray := FFIExternalArray newType: 'double' size: numberOfRows.
 	
@@ -372,13 +311,16 @@ LapackDgelsd >> solve [
 	infoPointer := LapackPointerCreator integerPointer: 0.
 	reciprocalConditionNumberPointer := LapackPointerCreator doublePointer: self reciprocalConditionNumber. 
 	
+	matrixAForLapack := matrixA contentsForLapack.
+	matrixBForLapack := matrixB contentsForLapackOfAtLeast: numberOfColumns * numberOfRightHandSides.
+	
 	workArraySize := self
 		findOptimalWorkspace: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixA
+		a: matrixAForLapack
 		lda: leadingDimensionAPointer 
-		b: matrixB
+		b: matrixBForLapack
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
@@ -393,9 +335,9 @@ LapackDgelsd >> solve [
 		ffiDgelsdM: numberOfRowsPointer 
 		n: numberOfColumnsPointer 
 		nrhs: numberOfRightHandSidesPointer
-		a: matrixA
+		a: matrixAForLapack
 		lda: leadingDimensionAPointer 
-		b: matrixB
+		b: matrixBForLapack
 		ldb: leadingDimensionBPointer 
 		s: singularValuesArray
 		rcond: reciprocalConditionNumberPointer 
@@ -405,7 +347,7 @@ LapackDgelsd >> solve [
 		iwork: iworkArray 
 		info: infoPointer.
 
-	minimumNormSolution := matrixB.
+	minimumNormSolution := matrixBForLapack.
 	singularValues := singularValuesArray.
 	rank := rankPointer value.
 	info := infoPointer value.
