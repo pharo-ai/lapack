@@ -12,7 +12,7 @@ Class {
 LapackDgesvdTest >> setUp [
 
 	super setUp.
-	fixture := LapackDgesvdFixture.
+	fixture := LapackDgesvdFixture new.
 	
 	algorithm := LapackDgesvd new
 		numberOfRows: fixture numberOfRows;

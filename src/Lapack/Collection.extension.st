@@ -24,3 +24,15 @@ Collection >> asFFIExternalArrayOfType: aType size: aNumber [
 	self withIndexDo: [ :each :index | array at: index put: each ].
 	^ array
 ]
+
+{ #category : #'*Lapack' }
+Collection >> contentsForLapack [
+
+	 ^ self asFFIExternalArrayOfType: 'double'
+]
+
+{ #category : #'*Lapack' }
+Collection >> contentsForLapackOfAtLeast: size [
+
+	^ self asFFIExternalArrayOfType: 'double' size: (self size max: size)
+]

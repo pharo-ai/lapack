@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-LapackDgesvdFixture class >> matrixA [
+LapackDgesvdFixture >> matrixA [
 
 	^ #(
 		8.79  6.11 -9.15  9.57 -3.49  9.84
@@ -18,8 +18,8 @@ LapackDgesvdFixture class >> matrixA [
 		3.16  7.98  3.01  5.80  4.27 -5.31).
 ]
 
-{ #category : #'as yet unclassified' }
-LapackDgesvdFixture class >> matrixU [
+{ #category : #accessing }
+LapackDgesvdFixture >> matrixU [
 
 	^ #(
 		-0.59   0.26   0.36   0.31   0.23
@@ -30,8 +30,8 @@ LapackDgesvdFixture class >> matrixU [
 		 0.29   0.58  -0.02   0.38  -0.65)
 ]
 
-{ #category : #'as yet unclassified' }
-LapackDgesvdFixture class >> matrixVTransposed [
+{ #category : #accessing }
+LapackDgesvdFixture >> matrixVTransposed [
 
 	^ #(
 		-0.25  -0.40  -0.69  -0.37  -0.41
@@ -42,25 +42,25 @@ LapackDgesvdFixture class >> matrixVTransposed [
 ]
 
 { #category : #accessing }
-LapackDgesvdFixture class >> numberOfColumns [
+LapackDgesvdFixture >> numberOfColumns [
 
 	^ 5
 ]
 
 { #category : #accessing }
-LapackDgesvdFixture class >> numberOfRows [
+LapackDgesvdFixture >> numberOfRows [
 
 	^ 6
 ]
 
 { #category : #accessing }
-LapackDgesvdFixture class >> optimalWorkArraySize [
+LapackDgesvdFixture >> optimalWorkArraySize [
 
 	^ 0
 ]
 
 { #category : #accessing }
-LapackDgesvdFixture class >> singularValues [
+LapackDgesvdFixture >> singularValues [
 
 	^ #(27.47 22.64 8.56 5.99 2.01)
 ]
