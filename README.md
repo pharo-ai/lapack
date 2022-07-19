@@ -35,10 +35,17 @@ If you are new to baselines and Metacello, check out the [Baselines](https://git
 
 ## How to use it?
 
-Currently, we only bound one routine: `dgelsd()` that:
->computes the minimum-norm solution to a linear least squares problem for GE matrices.
+Currently, we only bound one routine: `dgelsd()` in the class `LapackDgelsd`
 
-To use the method, you only need to:
+This algorithm computes the minimum-norm solution to a linear least squares problem double precision GE matrices. If you don't know about lapack nor about the least squares problem, please see the class comment (`LapackDgelsd`). For now, we are going to continue the explanation assuming that the reader knows about it.
+
+To use the method, you need to pass two matrices: `matrixA` and `matrixB`. The object needs to understand the messages `contentsForLapack` and `contentsForLapackOfAtLeast:`. Those methods are implemented in `Collection`. So, you can pass an array for example.
+
+Be careful, this is the binding for the fortran lapack and it expects that the matrices are flattened in a column-major form. If you want to use this library in a high-level way, we strongly recomend using the [linear-algebra](https://github.com/pharo-ai/linear-algebra) library of pharo-ai. It uses this lapack binding for solving the least square algorithm and it provides a nicer API and also has the matrices data structures that are internally store the elements already flattened in a column-major way and that you can use directly.
+
+### Code example
+
+For example, you can use the `LapackDgelsd` algorithm in the following way:
 
 ```st
 matrixA := #( 0.12 -6.91 -3.33  3.97 -8.19
