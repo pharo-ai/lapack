@@ -16,6 +16,18 @@ LapackLibrary >> macLibraryName [
 ]
 
 { #category : #'accessing - platform' }
+LapackLibrary >> unix32LibraryName [
+
+	^ FFIUnix32LibraryFinder findLibrary: 'liblapack.so.3'
+]
+
+{ #category : #'accessing - platform' }
+LapackLibrary >> unix64LibraryName [
+
+	^ FFIUnix64LibraryFinder findLibrary: 'liblapack.so.3'
+]
+
+{ #category : #'accessing - platform' }
 LapackLibrary >> win32LibraryName [
 
 	^ FFIWindowsLibraryFinder new
