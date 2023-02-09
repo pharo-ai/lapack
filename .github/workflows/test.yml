@@ -18,6 +18,8 @@ jobs:
         smalltalk: [ Pharo64-10, Pharo64-11 ]
     name: ${{ matrix.smalltalk }}
     steps:
+      - name: Install LAPACK
+        run: sudo apt-get install liblapack-dev
       - uses: actions/checkout@v2
       - uses: hpi-swa/setup-smalltalkCI@v1
         with:
