@@ -34,7 +34,3 @@ spec
 ```
 
 If you are new to baselines and Metacello, check out the [Baselines](https://github.com/pharo-open-documentation/pharo-wiki/blob/master/General/Baselines.md) tutorial on Pharo Wiki.
-
-## Why the CI is red?
-
-To run the algorithm, one needs to have installed Lapack library in the computer. We need to find a way to install Lapack in Smalltalk CI to be able to run the tests. If you have lapack installed in your computer, you can run manually the tests. They should be green.
