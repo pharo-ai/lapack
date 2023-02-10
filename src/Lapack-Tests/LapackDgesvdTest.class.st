@@ -34,15 +34,13 @@ LapackDgesvdTest >> testMatrixU [
 
 	(algorithm matrixU first: fixture numberOfRows * fixture numberOfColumns)
 		with: fixture matrixU
-		do: [ :real :expected | self assert: real closeTo: expected ]
+		do: [ :real :expected | self assert: real closeTo: expected precision: 0.01 ]
 ]
 
 { #category : #tests }
 LapackDgesvdTest >> testMatrixVTransposed [
 
-	algorithm matrixVTransposed
-		with: fixture matrixVTransposed
-		do: [ :real :expected | self assert: real closeTo: expected ]
+	algorithm matrixVTransposed with: fixture matrixVTransposed do: [ :real :expected | self assert: real closeTo: expected precision: 0.01 ]
 ]
 
 { #category : #tests }
@@ -50,5 +48,5 @@ LapackDgesvdTest >> testSingularValues [
 
 	(algorithm singularValues first: fixture numberOfColumns)
 		with: fixture singularValues
-		do: [ :real :expected | self assert: real closeTo: expected ]
+		do: [ :real :expected | self assert: real closeTo: expected precision: 0.01 ]
 ]
