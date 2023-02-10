@@ -8,6 +8,15 @@ Class {
 	#category : #'Lapack-Tests'
 }
 
+{ #category : #asserting }
+LapackDgesvdTest >> assert: actualNumber closeTo: expectedNumber precision: epsilon [
+
+	self flag: #pharo10. "Remove this method when Pharo 11 will be the latest supported version of this project. 
+	This is to fix float comparison problem like in https://github.com/pharo-project/pharo/pull/12615"
+
+	^ self assert: (actualNumber - expectedNumber) abs <= epsilon description: [ self comparingStringBetween: actualNumber and: expectedNumber ]
+]
+
 { #category : #running }
 LapackDgesvdTest >> setUp [
 
